@@ -1,0 +1,51 @@
+how to convert map to list
+
+List<Map.Entry<String, Integer>> list=new ArrayList<Map.Entry<String,Integer>>(h.entrySet());
+
+
+
+groupedWords.putIfAbsent(firstLetter, new ArrayList<>());
+groupedWords.get(firstLetter).add(word);
+
+
+
+1. putIfAbsent(firstLetter, new ArrayList<>());
+This line ensures that a key-value pair for the current starting letter (firstLetter) exists in the TreeMap.
+
+putIfAbsent(K key, V value):
+
+If the key (firstLetter) is already present in the map, it does nothing.
+If the key is not present, it inserts the key with the provided value (new ArrayList<>() in this case).
+Purpose:
+This ensures that there’s always an ArrayList ready to hold words for that starting letter.
+
+Example: Suppose firstLetter is 'a' (from the word "apple"):
+
+If 'a' is not already a key in groupedWords, it adds 'a' with an empty list:
+groupedWords.put('a', new ArrayList<>()); → groupedWords = {a=[]}
+If 'a' is already a key, it skips adding it and moves to the next line.
+2. groupedWords.get(firstLetter).add(word);
+This line retrieves the list corresponding to the current starting letter (firstLetter) and adds the current word (word) to that list.
+
+How It Works:
+
+groupedWords.get(firstLetter) retrieves the list associated with the key firstLetter.
+Example: If firstLetter is 'a', it fetches the list stored at key 'a'.
+.add(word) appends the current word to the fetched list.
+Purpose:
+This adds the current word to the correct group (list) for its starting letter.
+
+Example: Continuing from the first line:
+
+If the current word is "apple", and groupedWords is {a=[]}, then:
+groupedWords.get('a') returns the list [].
+.add("apple") updates the list to [apple].
+After this line, groupedWords becomes: {a=[apple]}.
+Combined Example:
+Suppose the input is ["apple", "banana", "apricot", "blueberry"].
+
+First Iteration (word = "apple"):
+
+firstLetter = 'a'
+putIfAbsent('a', new ArrayList<>()) → Adds 'a' with an empty list: {a=[]}
+groupedWords.get('a').add("apple") → Adds "apple" to the list: {a=[apple]}
