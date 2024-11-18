@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -18,36 +19,44 @@ public class Find_the_Most_Frequent_Element_in_a_List {
 //Output: 2
 		
 		ArrayList l=new ArrayList();
-		TreeMap h=new TreeMap();
+		TreeMap<Integer,Integer> h=new TreeMap<Integer,Integer> ();
 		l.add(1);
 		l.add(2);
 		l.add(3);
 		l.add(3);
 		l.add(1);
 		l.add(1);
+		l.add(1);
+		l.add(1);
+		l.add(2);
 		l.add(2);
 		l.add(2);
 		l.add(2);
 		
+		System.out.println(l);
 	
-		
+		int maxfreuency=0;
 		for(Object i:l)
 		{
 		   int j=Collections.frequency(l, i);
-			h.put(j,i);
+		   h.put((Integer) i,j);  
 		}
 		System.out.println(h);
-//		System.out.println(h.size());
-//		System.out.println(h);
-//		System.out.println("most ocuured :"+(h.get(h.size())));
-		Collection s=h.values();
-		int last=0;
-		for(Object j:s)
+		for(Map.Entry<Integer,Integer> entry:h.entrySet())
 		{
-			last=(int) j;
+			if(maxfreuency<entry.getValue())
+			{
+				maxfreuency=entry.getValue();
+			}
 		}
-		System.out.println("most occured element :"+last);
-		
+		System.out.println(maxfreuency);
+		for(Map.Entry<Integer,Integer> entry:h.entrySet())
+		{
+			if(maxfreuency==entry.getValue())
+			{
+				System.out.println("most frequent :"+entry.getKey());
+			}
+		}
 
 	}
 
